@@ -39,6 +39,18 @@ div {
 
 #leaderboard { right: 20px; bottom: 20px; }
 
+#countdown {
+	font-family: "Giant";
+	font-size: 20px;
+	top: 20px;
+	right: 20px;
+}
+
+#countdown .counter {
+	display: block;
+	font-size: 60px;
+}
+
 #title {
 	font-family: "Giant", sans-serif;
 	font-size: 26px;
