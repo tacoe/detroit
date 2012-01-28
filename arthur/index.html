@@ -26,7 +26,28 @@
 $(function() {
 	var world = World($("#worldView")[0]);
 	var me = world.spawnPip();
+
+	// Extreme Physics Pro 2000	
+	$(window).keydown(function(e) {
+		if(e.keyCode == 37)
+			me.impulse.x = -1;
+		if(e.keyCode == 39)
+			me.impulse.x =  1;
+		if(e.keyCode == 38)
+			me.impulse.y = -1;
+		if(e.keyCode == 40)
+			me.impulse.y =  1;
+	});
+
+	$(window).keyup(function(e) {
+		if(e.keyCode == 37 || e.keyCode == 39)
+			me.impulse.x = 0;
+		if(e.keyCode == 38 || e.keyCode == 40)
+			me.impulse.y = 0;
+	});
+	
 	world.run();
+	
 });
 </script>
 

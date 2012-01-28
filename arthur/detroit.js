@@ -33,17 +33,25 @@ function World(viewCanvas) {
 		view.lineWidth = 3;
 		for(var uid in pips) {
 			var p = pips[uid];
-			view.fillRect(p.loc.x - 2, p.loc.y - 2, 4, 4);
+			view.fillRect(p.loc.x - 4, p.loc.y - 4, 8, 8);
 		}
 	}
 		
 	function stepPhysics() {
 		// handle impulses + movement
+		var lp = pips[localPip];
+		if(lp.impulse.x)
+			lp.loc.x += lp.impulse.x;
+		if(lp.impulse.y)
+			lp.loc.y += lp.impulse.y;
+		lp.loc.x = Math.min(VIEW_WIDTH - 4, Math.max(4, lp.loc.x));
+		lp.loc.y = Math.min(VIEW_HEIGHT - 4, Math.max(4, lp.loc.y));
+
 		render();
 	}
 	
 	function stepNetwork() {
-		sendMove(pips[localPip]);
+//		sendMove(pips[localPip]);
 	}
 
 	function run() {
