@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Detroit</title>
+
+	<script src="jquery-1.6.2.min.js"></script>	
+	<script src="detroit.js"></script>
+	<style>
+		html, body { height: 100%; }
+		body { margin: 0; background: #eee; }
+		#wrap {
+			margin: 0 auto;
+			width: 802px;
+		}
+		#worldView {
+			border: 1px solid black;
+			position: relative;
+			top: 50px;
+		}
+	</style>
+</head>
+<body>
+
+<script>
+$(function() {
+	var world = World($("#worldView")[0]);
+	var me = world.spawnPip();
+	world.run();
+});
+</script>
+
+<div id="wrap"><canvas id="worldView" width="800" height="600"></canvas></div>
+
+</body>
+</html>
