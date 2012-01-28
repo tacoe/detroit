@@ -1,0 +1,47 @@
+
+body {
+	background: red;
+	color: white;
+	font-family: sans-serif;
+}
+
+div {
+	position: absolute;
+}
+
+.glyph {
+	font-family: "Glyphish";
+	font-size: 3em;
+	color: white;
+}
+
+.player {
+	font-family: helvetica;
+	color: white;
+}
+
+.me { 
+	color: white;
+}
+
+.candy {
+	font-size: 2.5em;
+}
+
+#player1 { left: 40px; top: 60px; }
+#player2 { left: 240px; top: 140px; }
+#player3 { left: 100px; top: 75px; }
+#player4 { left: 50px; top: 50px; }
+
+#candy1 { left: 40px; top: 120px; }
+#candy2 { left: 240px; top: 150px; }
+#candy3 { left: 140px; top: 180px; }
+
+#leaderboard { right: 20px; bottom: 20px; }
+
+#title {
+	font-family: "Giant", sans-serif;
+	font-size: 26px;
+	left: 20px;
+	bottom: 20px;
+}
