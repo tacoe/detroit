@@ -14,16 +14,28 @@ function GenHex(len) {
 }
 
 
+function LocalPip() {
+}
+
+function RemotePip() {
+}
+
 function World(viewCanvas) {
 	var view = viewCanvas.getContext("2d"),
 		self,
 		lastMsg = 0,
 		lastMsgTime = 0,
+		lastLocalX = -1, lastLocalY = -1,
 		sending = false,
 		pips = {},
-		localPip = "";
+		localPip = "",
+		netCycle = 0;
 	
-	var VIEW_WIDTH = 800, VIEW_HEIGHT = 600;
+	var VIEW_WIDTH = 800,
+		VIEW_HEIGHT = 600;
+		SERVER = "http://10.0.2.4:8081/",
+		LOCAL_ONLY = false;
+	
 	
 	function render() {
 		view.fillStyle = "#e00000";
@@ -51,12 +63,22 @@ function World(viewCanvas) {
 	}
 	
 	function stepNetwork() {
-		sendMove(pips[localPip]);
+		++netCycle; netCycle &= 3;
+
+		var lp = pips[localPip];
+		if(lp.loc.x != lastLocalX || lp.loc.y != lastLocalY) {
+			lastLocalX = lp.loc.x;
+			lastLocalY = lp.loc.y;
+			sendMove(pips[localPip]);
+		}
+		else // if(netCycle == 0)
+			send();
 	}
 
 	function run() {
 		setInterval(stepPhysics, 25);
-		setInterval(stepNetwork, 250);
+		if(! LOCAL_ONLY)
+			setInterval(stepNetwork, 250);
 	}
 
 	function spawnPip() {
@@ -72,12 +94,9 @@ function World(viewCanvas) {
 		return pip;
 	}
 	
-	var SERVER = "http://10.0.2.3:8080/";
-	
 	function receive(data) {
 		var processed = 0;
 
-		console.info("received", data);
 		data.messages.forEach(function(msg) {
 			lastMsg = msg.id;
 			lastMsgTime = msg.timeStamp;
@@ -98,18 +117,21 @@ function World(viewCanvas) {
 			++processed;
 		});
 
-		console.info("processed " + processed + "messages");
-		console.info("pips", pips);
+		if(processed) {
+			console.info("processed " + processed + "messages");
+			console.info("pips", pips);
+		}
 	}
 	
 	function send(data) {
 		if(sending) {
-			console.info("still sending, skipping");
+// 			console.info("still sending, skipping");
 			return;
 		}
 		sending = true;
 		
-		var url = SERVER + "?since=" + lastMsg + "&j=" + encodeURIComponent(JSON.stringify(data));
+		var url = SERVER + "?since=" + lastMsg + "&j=";
+		if(data) url += encodeURIComponent(JSON.stringify(data));
 
 		$.ajax(url, {
 			type: "GET", async: true,
