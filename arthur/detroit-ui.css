@@ -3,6 +3,7 @@ body {
 	background: red;
 	color: white;
 	font-family: sans-serif;
+	text-shadow: 0 0 10px #FFF;
 }
 
 div {
@@ -10,7 +11,7 @@ div {
 }
 
 #fxscreen {
-	background: red;
+	background: #800;
 	opacity: 0.5;
 	-moz-opacity: 0.5;
 	filter:alpha(opacity=5);
@@ -29,7 +30,11 @@ div {
 
 .player {
 	font-family: helvetica;
-	color: white;
+	color: #FFF;
+}
+
+.playergrp {
+	font-size: 9em;
 }
 
 .me { 
@@ -43,20 +48,21 @@ div {
 #player1 { left: 40px; top: 60px; }
 #player2 { left: 240px; top: 140px; }
 #player3 { left: 100px; top: 75px; }
-#player4 { left: 50px; top: 50px; }
+#player4 { left: 60px; top: 40px; }
+#playergrp1 { left: 22px; top: -14px; }
 
 #candy1 { left: 40px; top: 120px; }
-#candy2 { left: 240px; top: 150px; }
+#candy2 { left: 280px; top: 150px; }
 #candy3 { left: 140px; top: 180px; }
 
-#leaderboard { 
-	right: 20px; 
-	top: 160px; 
-	font-family: "Giant";
-	font-size: 14px;
+#countdown table { 
+	padding-top: 20px;
+	font-family: "04b03";
+	font-size: 16px;
 }
-#leaderboard table tr td { margin: 0; }
-#leaderboard table { border-spacing: 0; }
+
+#countdown table { border-spacing: 0; width: 100%;}
+#countdown table .n { text-align: right;}
 
 #countdown {
 	font-family: "Giant";
