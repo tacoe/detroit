@@ -1,0 +1,1 @@
+java -cp detroit.jar:lib/scala-library.jar:lib/jetty-server-8.0.0.M0.jar:lib/servlet-api-3.0.20100224.jar:lib/jetty-util-8.0.0.M0.jar:lib/jetty-http-8.0.0.M0.jar:lib/lift-json_2.8.0-2.1.jar:lib/jetty-io-8.0.0.M0.jar:lib/jetty-continuation-8.0.0.M0.jar:lib/jetty-servlet-8.0.0.M0.jar:lib/jetty-security-8.0.0.M0.jar com.beyondtrees.detroit.Server 8081
