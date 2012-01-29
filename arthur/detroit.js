@@ -51,12 +51,12 @@ function World(viewCanvas) {
 	}
 	
 	function stepNetwork() {
-//		sendMove(pips[localPip]);
+		sendMove(pips[localPip]);
 	}
 
 	function run() {
 		setInterval(stepPhysics, 25);
-		setInterval(stepNetwork, 100);
+		setInterval(stepNetwork, 250);
 	}
 
 	function spawnPip() {
