@@ -12,6 +12,7 @@ import org.eclipse.jetty.server._
 import handler.DefaultHandler
 import net.liftweb.json.JsonAST._
 import net.liftweb.json.JsonDSL._
+import net.liftweb.json.JsonParser.parse
 
 class DetroitHandler extends DefaultHandler {
   override def handle(target:String,
@@ -21,14 +22,12 @@ class DetroitHandler extends DefaultHandler {
     //extract parameters
     val game = Game.getGame(target)
     val since = Integer.parseInt(Option(request.getParameter("since")).getOrElse("0"))
-    val jsonstring = Option(request.getParameter("j"))
-    if (jsonstring.isDefined) {
-      println("Game "+game.id+" request SINCE="+since+" and MESSAGE="+jsonstring)
-      //parse into live json object
-      val input = net.liftweb.json.JsonParser.parse(jsonstring.get)
-      game.add(input)
-    } else {
-      println("Game "+game.id+" request SINCE="+since)
+    Option(request.getParameter("j")) match {
+      case Some(js) if (js != "") =>
+        println("Game "+game.id+" request SINCE="+since+" and MESSAGE="+js)
+        game.add(parse(js))
+      case _ =>
+        println("Game "+game.id+" request SINCE="+since)
     }
 
     val output = JObject(List(
@@ -48,10 +47,11 @@ class DetroitHandler extends DefaultHandler {
 
 object Server {
   def main(args:Array[String]) {
-    println("hi there")
+    println("Welcome to Detroit. The one and only parameter is the server port number, but if you leave that out we'll pick something suitable for you")
+    val port = Integer.parseInt(args.headOption.getOrElse("8080"))
 
-    val s = new Server(8080)
-    println("aaaaaand we have a server")
+    val s = new Server(port)
+    println("aaaaaand we have a server, waiting patiently for you on port "+port)
 
     s.setHandler(new DetroitHandler)
 
