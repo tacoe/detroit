@@ -1,4 +1,4 @@
-// TE 2012
+// Taco Ekkel 2012
 // 
 // full postprocessing filter
 // 'visual monosodium glutamate for retro games'
@@ -22,8 +22,8 @@ float rand(vec2 co) {
 
 void main(void)
 {
-    float bloom = 0.35;  // TODO make uniform input (bloom = points)
-    float shift = 0.003; // TODO make uniform input (shift = damage)
+    float bloom = 0.35;  // TODO make uniform input (bloom = good / points)
+    float shift = 0.003; // TODO make uniform input (shift = bad / damage)
 
     vec2 q = gl_FragCoord.xy / resolution.xy;
     vec2 uv = 0.5 + (q-0.5);
@@ -31,14 +31,14 @@ void main(void)
     vec4 sum = vec4(0);
     vec4 curcol = texture2D(tex0,vec2(q.x,1.0-q.y));
 
-    // neighbourhood values for bloom
+    // neighbourhood interpolation for bloom
     for(int i=-4;i<4;i++) {
         for (int j=-3;j<3;j++) {
             sum += texture2D(tex0,vec2(j,i)*0.004 + vec2(q.x,1.0-q.y)) * 0.25;
         }
       }
           
-    // beam shift (plus random distortion)
+    // electron beam shift (plus random distortion)
     if(rand(vec2(1.-time, sin(time)))>0.98) { 
        shift = 0.1*rand(vec2(time, time)); 
     }
